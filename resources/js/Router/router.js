@@ -4,9 +4,9 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 import Parallex from "../components/Parallex"
-import Login    from '../components/login/Login'
-import signup   from '../components/login/register'
-import Logout   from '../components/login/logout'
+import Login    from '../components/auth/Login'
+import signup   from '../components/auth/register'
+import Logout   from '../components/auth/logout'
 import Forum    from '../components/forum/forum'
 import Read     from '../components/forum/read'
 import Create   from '../components/forum/create'

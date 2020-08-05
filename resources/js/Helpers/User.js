@@ -16,25 +16,28 @@ class User{
 
         const user = res.data.user
         if(Token.isValid(access_token)){
-            console.log(access_token)
-            AppStorage.store(user,access_token)
+
+            AppStorage.store(access_token,user)
+            window.location = "/"
         }
     }
 
     hasToken(){
-        const storeToken    =  AppStorage.getToken()
-        if(storeToken){
-           return  Token.isValid(storeToken) ? true : false
+        const storedToken    =  AppStorage.currentToken()
+
+        if(storedToken){
+           return  Token.isValid(storedToken) ? true : false
         }
         return false
     }
 
     loggedIn(){
-        this.hasToken()
+      return   this.hasToken()
     }
 
     logout(){
         AppStorage.clear()
+        window.location = "/"
     }
 
     id(){

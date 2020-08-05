@@ -7,19 +7,20 @@ class AppStorage{
     }
 
     store(token,user){
-        this.storeUser(user)
         this.storeToken(token)
+        this.storeUser(user)
+
     }
 
     clear(){
         localStorage.removeItem('token')
         localStorage.removeItem('user')
     }
-    getToken(){
-        localStorage.getItem('token')
+    currentToken(){
+        return localStorage.getItem('token')
     }
-    getUser(){
-        localStorage.getItem('user')
+    currentUser(){
+        return localStorage.getItem('user')
     }
 }
 

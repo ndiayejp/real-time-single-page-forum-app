@@ -14,10 +14,11 @@
                                 <label for="email">Mot de passe</label>
                                 <input id="password" v-model="form.password" type="password" class="form-control" required   autofocus>
                             </div>
-                            <div class="form-group mb-0">
-                                <button type="submit" class="btn btn-dark text-white">
+                            <div class="form-group mb-0 d-flex justify-space-between">
+                                <button type="submit" class="mr-auto btn btn-dark text-white">
                                     Connexion
                                 </button>
+                                <router-link to="/signup" class="card-link ml-4 ">S'enregistrer</router-link>
                             </div>
                          </form>
                     </div>
@@ -39,9 +40,15 @@ export default {
             errors:{}
         }
     },
+    created(){
+        if(User.loggedIn()){
+            this.$router.push({path:'forum'})
+        }
+    },
     methods:{
         signin(){
             User.login(this.form)
+
         }
     }
 }

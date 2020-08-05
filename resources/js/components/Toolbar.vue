@@ -7,18 +7,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto"  >
-                        <li class="nav-item active" v-for="item in items" :key="item.title"  >
-                          <router-link  :to="item.to" class="nav-link"> {{item.title}}</router-link>
-                        </li>
 
-                    </ul>
                     <ul class="navbar-nav ml-auto nav-flex-icons">
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Connexion</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">S'enregistrer</a>
+                        <li class="nav-item active" v-for="item in items" :key="item.title"  >
+                          <router-link  :to="item.to" class="nav-link" v-if="item.show"> {{item.title}}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -33,12 +25,16 @@ export default {
     data(){
         return {
             items: [
-                { title: "Forum", to: "/forum" },
-                { title: "Connnexion", to: "/login"},
-                { title: "S'enregistrer", to: "/signup"},
-                { title: "Logout", to: "/logout" }
+                { title: "Forum", to: "/forum",show:true },
+                { title: "Connnexion", to: "/login",show:!User.loggedIn()},
+                { title: "Déconnexion", to: "/logout" ,show:User.loggedIn()}
             ]
         }
+    },
+    created(){
+        EventBus.$on('logout',()=>{
+            User.logout()
+        })
     }
 }
 </script>

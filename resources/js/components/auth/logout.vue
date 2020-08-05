@@ -8,6 +8,9 @@ export default {
         return {
 
         }
+    },
+    created(){
+        EventBus.$emit('logout')
     }
 }
 </script>
