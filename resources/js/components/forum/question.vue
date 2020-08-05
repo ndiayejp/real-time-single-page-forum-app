@@ -1,16 +1,16 @@
 <template>
     <div class="col-md-12">
-        <a :href="data.path" class="question">
+        <router-link :to="data.path" class="question">
             <div class="card shadow-sm mb-2">
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="card-title">{{data.name}}</div>
+                            <div class="card-title"><h4>{{data.name}}</h4></div>
                         </div>
                         <div class="col-md-4">
                             <div class="d-flex justify-content-end">
-                                <span class="mr-1"> {{data.category}}</span>
-                                <span class="ml-1 text-primary"> <strong>{{data.reply_count}}</strong></span>
+                                <div class="mr-1 btn btn-sm btn-primary"> {{data.category}}</div>
+                                <div class="ml-1 btn btn-danger btn-sm "> <strong>{{data.reply_count}} réponses</strong></div>
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
 
                 </div>
             </div>
-        </a>
+        </router-link>
     </div>
 </template>
 

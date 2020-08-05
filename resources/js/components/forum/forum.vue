@@ -1,13 +1,18 @@
 <template>
     <div class="container">
+        <loading
+            :active.sync="isLoading"
+            :can-cancel  ="true"
+            :is-full-page="fullPage"
+            :opacity     ="0.1"
+            loader="dots" color="#529ae4" :width="100">
+        </loading>
+       <div class="row" v-if="isloggin">
+           <div class="col-md-12">
+               <router-link to="/ask" class="btn btn-primary mb-2">Poser une question</router-link>
+           </div>
+       </div>
        <div class="row">
-            <loading
-                :active.sync="isLoading"
-                :can-cancel  ="true"
-                :is-full-page="fullPage"
-                :opacity     ="0.1"
-                loader="dots" color="#529ae4" :width="100">
-            </loading>
            <question v-for="question in questions" :key="question.name" :data="question"></question>
        </div>
     </div>
@@ -37,6 +42,11 @@ export default {
     },
     components:{
         question,Loading
+    },
+    computed:{
+        isloggin(){
+            return User.loggedIn()
+        }
     }
 }
 </script>

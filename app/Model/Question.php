@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
-    protected $guarded = [];
+    protected $fillable = ['name','content','category_id','user_id','slug'];
 
     public function user(){
         return $this->belongsTo(User::class);

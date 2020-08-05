@@ -1,7 +1,7 @@
 <template>
     <div>
         <toolbar></toolbar>
-        <main role="main"  class="flex-shrink-0" >
+        <main role="main"  class="flex-shrink-0" style="min-height:500px">
             <router-view></router-view>
         </main>
         <app-footer></app-footer>

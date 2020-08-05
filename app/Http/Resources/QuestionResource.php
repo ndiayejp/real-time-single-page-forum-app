@@ -19,13 +19,14 @@ class QuestionResource extends JsonResource
             'name'        =>    $this->name,
             'slug'        =>    $this->slug,
             'path'        =>    $this->path,
-            'body'        =>    $this->content,
+            'content'        =>    $this->content,
             'replies'     =>    ReplyResource::collection($this->replies),
             'reply_count' =>    $this->replies->count(),
             'created_at'  =>    $this->created_at->diffForHumans(),
             'user'        =>    $this->user->name,
             'user_id'     =>    $this->user_id,
             'category'    =>    $this->category->name,
+            'category_id'=>$this->category->id
         ];
     }
 }

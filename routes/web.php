@@ -19,4 +19,7 @@ Route::get('/', function () {
 Route::get('/{any}', function () {
     return view('welcome');
 });
+Route::get('/{any}/{any1}', function () {
+    return view('welcome');
+});
 

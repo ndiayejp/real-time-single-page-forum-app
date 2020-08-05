@@ -44,6 +44,7 @@ class QuestionController extends Controller
         $question->slug        = Str::slug($request->name);
         $question->content     = $request->content;
         $question->category_id = $request->category_id;
+        $question->user_id     = auth()->user()->id;
         $question->save();
         return response(new QuestionResource($question), Response::HTTP_ACCEPTED);
     }
