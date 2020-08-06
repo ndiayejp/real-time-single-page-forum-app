@@ -16,20 +16,18 @@ class Question extends Model
     }
 
     public function replies(){
-        return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class)->latest();
     }
 
     public function category(){
         return $this->belongsTo(Category::class);
     }
 
-    public function getRouteKeyName()
-    {
+    public function getRouteKeyName(){
         return "slug";
     }
 
-    public function getPathAttribute()
-    {
+    public function getPathAttribute(){
         return "question/$this->slug";
     }
 }

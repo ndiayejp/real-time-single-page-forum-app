@@ -10,6 +10,7 @@ import Logout   from '../components/auth/logout'
 import Forum    from '../components/forum/forum'
 import Read     from '../components/forum/read'
 import Create   from '../components/forum/create'
+import Category   from '../components/category/createCategory'
 
 const routes = [
     {
@@ -37,6 +38,10 @@ const routes = [
     {
         path        : '/ask',
         component   : Create
+    },
+    {
+        path        : '/category',
+        component   : Category
     },
     {
         path        : '/question/:slug',

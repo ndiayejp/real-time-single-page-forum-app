@@ -20,9 +20,9 @@ class LikeController extends Controller
     }
 
     public function likeIt(Reply $reply){
-        $reply->likes()->create(['user_id' => Auth::id()]);
+        $reply->likes()->create(['user_id' => auth()->id()]);
    }
    public function unlikeIt(Reply $reply){
-        $reply->likes()->where('user_id',auth()->user()->id)->first()->delete();
+        $reply->likes()->where('user_id',auth()->id())->first()->delete();
    }
 }

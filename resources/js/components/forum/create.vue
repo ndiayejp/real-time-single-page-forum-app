@@ -2,9 +2,12 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card shadow-sm mb-2">
+                <div class="card shadow-sm mb-2 rounded-0">
+                    <div class="card-header">
+                        <h4>Ajouter une question</h4>
+                    </div>
                     <div class="card-body">
-                          <h4 class="card-title">Ajouter une question</h4>
+
                           <form @submit.prevent="create">
                               <div class="form-group">
                                   <label for="name">Sujet</label>
@@ -19,11 +22,11 @@
                               </div>
                               <div class="form-group">
                                   <label for="content">Contenu</label>
-                                  <vue-simplemde v-model="form.content" ref="markdownEditor" />
+                                  <markdown-editor v-model="form.content" ref="markdownEditor" ></markdown-editor>
                               </div>
                               <div class="form-group">
-                                   <button type="submit" class="btn btn-dark text-white">
-                                        Ajouter le sujet
+                                   <button type="submit" :disabled="!FormIsValid" class="btn btn-success text-white btn-lg rounded-0">
+                                         <font-awesome-icon :icon="['fas', 'save']"/>  Enregistrer
                                     </button>
                               </div>
                           </form>
@@ -35,7 +38,7 @@
 </template>
 
 <script>
-
+import markdownEditor  from 'vue-simplemde'
 export default {
     data(){
         return {
@@ -51,6 +54,14 @@ export default {
     created(){
         this.loadCats()
     },
+    computed:{
+        FormIsValid(){
+            return this.form.content && this.form.name && this.form.category !==""
+        }
+    },
+    components: {
+        markdownEditor
+    },
     methods:{
         loadCats(){
             axios.get('/api/category')
@@ -62,9 +73,8 @@ export default {
         },
         create(){
             axios.post('/api/question',this.form)
-            .then((res)=> this.$router.push(res.data.path)).catch(err=>{
-               this.errors = err.response.data.errors
-            })
+            .then((res)=> this.$router.push(res.data.path))
+            .catch(err=>Exception.handle(err))
         }
     }
 }

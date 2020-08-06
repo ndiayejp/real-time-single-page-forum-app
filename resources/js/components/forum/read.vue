@@ -1,9 +1,9 @@
 <template>
     <div v-if="question">
         <edit-question :data="question" v-if="editing"></edit-question>
-        <div v-else>
-            <show-question :data="question"></show-question>
-        </div>
+    <div v-else>
+        <show-question :question="question"></show-question>
+    </div>
     </div>
 </template>
 
@@ -13,18 +13,23 @@ import editQuestion from "./editQuestion"
 export default {
     data(){
         return {
-            question:null,
-            editing:false
+            question          : null,
+            editing           : false,
+            beforeEditContent : ""
         }
     },
     created(){
         this.getQuestion()
         EventBus.$on('startEdit',()=>{
             this.editing = true
+            this.beforeEditContent = this.question.content
         })
-        EventBus.$on('cancelEdit',()=>{
+        EventBus.$on('cancelEdit',(body)=>{
             this.editing = false
-
+            if(this.question.content !==body){
+                this.question.body = this.beforeEditContent
+                this.beforeEditContent = ""
+            }
         })
     },
     components:{

@@ -8,6 +8,8 @@ Route::apiResource('/question','questionController');
 Route::apiResource('/category', 'CategoryController');
 Route::apiResource('/question/{question}/reply','ReplyController');
 
+Route::get('/getcat','CategoryController@getCats');
+
 Route::post('/like/{reply}','likeController@likeIt');
 Route::delete('/like/{reply}','likeController@unlikeIt');
 

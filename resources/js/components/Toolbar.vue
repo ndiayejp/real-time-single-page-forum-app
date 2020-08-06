@@ -26,6 +26,7 @@ export default {
         return {
             items: [
                 { title: "Forum", to: "/forum",show:true },
+                { title: "Catégorie", to: "/category",show:true },
                 { title: "Connnexion", to: "/login",show:!User.loggedIn()},
                 { title: "Déconnexion", to: "/logout" ,show:User.loggedIn()}
             ]

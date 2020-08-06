@@ -20,14 +20,14 @@
                             </div>
                             <div class="form-group">
                                 <label for="content">Contenu</label>
-                                <vue-simplemde v-model="form.content" ref="markdownEditor" />
+                                <markdown-editor  v-model="form.content" ref="markdownEditor"></markdown-editor>
                             </div>
                             <div class="form-group">
                                     <button type="submit" class="btn btn-success text-white">
-                                        Modifier
+                                        <font-awesome-icon :icon="['fas', 'save']" /> Enregistrer
                                     </button>
                                     <button type="submit" class="btn btn-dark text-white" @click="cancel">
-                                        Annuler
+                                        <font-awesome-icon :icon="['fas', 'times']" /> Annuler
                                     </button>
                               </div>
                         </form>
@@ -39,43 +39,46 @@
 </template>
 
 <script>
+import markdownEditor  from 'vue-simplemde'
     export default {
         props:['data'],
         data(){
             return{
                 form:{
-                    name:null,
-                    content:null,
-                    category_id:null
+                    name        :null,
+                    content     :null,
+                    category_id :null
                 },
-                categories:{}
+                categories:{},
             }
         },
         mounted(){
             this.form = this.data
             this.loadCats()
          },
+        components:{
+            markdownEditor
+        },
         methods:{
             cancel(){
-                EventBus.$emit('cancelEdit')
+                EventBus.$emit('cancelEdit', this.data.content)
             },
             update(){
                 axios.patch(`/api/question/${this.data.slug}`,this.form)
                 .then((res)=>{
                     this.cancel()
-
                 }).catch((err)=>{
                     console.log(err)
                 })
             },
             loadCats(){
-            axios.get('/api/category')
-            .then((res)=>{
-                this.categories = res.data.data
-            }).catch((err)=>{
-                console.log(err)
-            })
-        },
+                axios.get('/api/category')
+                .then((res)=>{
+                    this.categories = res.data.data
+                }).catch((err)=>{
+                    console.log(err)
+                })
+            },
         }
     }
 </script>

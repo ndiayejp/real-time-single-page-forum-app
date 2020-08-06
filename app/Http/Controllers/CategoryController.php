@@ -16,10 +16,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return CategoryResource::collection(Category::latest()->get());
+        return CategoryResource::collection(Category::latest()->has('questions')->get());
     }
 
-
+    public function getCats()
+    {
+        return CategoryResource::collection(Category::latest()->get());
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -28,7 +31,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
+        $category       = new Category();
         $category->name = $request->name;
         $category->slug = Str::slug($request->name);
         $category->save();

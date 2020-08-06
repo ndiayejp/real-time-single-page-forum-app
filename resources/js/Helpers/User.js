@@ -16,7 +16,6 @@ class User{
 
         const user = res.data.user
         if(Token.isValid(access_token)){
-
             AppStorage.store(access_token,user)
             window.location = "/"
         }
@@ -26,7 +25,7 @@ class User{
         const storedToken    =  AppStorage.currentToken()
 
         if(storedToken){
-           return  Token.isValid(storedToken) ? true : false
+           return  Token.isValid(storedToken) ? true : this.logout()
         }
         return false
     }
