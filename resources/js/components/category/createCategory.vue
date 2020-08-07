@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card shadow-sm mb-2 rounded-0">
+                <div class="card shadow-sm mb-2">
                     <div class="card-header"><h4>Ajouter une catégorie</h4></div>
                     <div class="card-body">
                           <form @submit.prevent="submit">
@@ -10,12 +10,11 @@
                                   <label for="name">Nom</label>
                                   <input type="text" v-model="form.name" class="form-control">
                               </div>
-
                               <div class="form-group">
-                                    <button v-if="!editSlug" type="submit" class="btn btn-success   btn-lg rounded-0">
+                                    <button v-if="!editSlug" type="submit" class="btn btn-success btn-lg">
                                         <font-awesome-icon :icon="['fas', 'save']"/> Enregistrer
                                     </button>
-                                     <button v-else type="submit" class="btn btn-dark text-white btn-lg rounded-0">
+                                     <button v-else type="submit" class="btn btn-dark text-white btn-lg">
                                         <font-awesome-icon :icon="['fas', 'check']"/> Modifier
                                     </button>
                               </div>
@@ -59,6 +58,9 @@ export default {
         }
     },
     created(){
+        if(!User.loggedIn()){
+            return this.$router.push('/forum')
+        }
         axios.get('/api/getcat')
         .then((res)=>{
             this.categories = res.data.data

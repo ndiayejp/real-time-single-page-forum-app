@@ -9,7 +9,7 @@
                     </div>
                     <div class="form-group">
                         <button type="submit" class="btn btn-success text-white btn-lg" :disabled="!FormIsValid">
-                            <font-awesome-icon :icon="['fas', 'save']"/> Enregistrer
+                            <font-awesome-icon :icon="['fas', 'save']"/> Répondre
                         </button>
                     </div>
                 </form>
@@ -39,12 +39,13 @@ export default {
     },
     methods:{
         submit(){
+
             axios.post(`/api/question/${this.questionSlug}/reply`,{
                 content:this.content
             })
             .then((res)=>{
                 this.content            = ""
-                this.simplemde.value    = ""
+                this.simplemde.value ("")
                 EventBus.$emit('newReply',res.data)
             }).catch( err=>Exception.handle(err))
         }

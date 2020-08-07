@@ -1,6 +1,7 @@
 <template>
   <div>
-      <font-awesome-icon :icon="['fas', 'heart']" size="lg" :style="{ color,cursor:'pointer' }" @click="likeIt" />{{count}}
+      <font-awesome-icon :icon="['fas', 'heart']" size="lg" :style="{ color,cursor:'pointer' }" @click="likeIt" />
+      <strong>{{count}}</strong>
   </div>
 </template>
 

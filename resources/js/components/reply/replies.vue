@@ -1,6 +1,10 @@
 <template>
     <div>
+         <div class="card shadow-sm mb-2">
+            <div class="card-body">
         <reply v-for="(reply,index) in replies" :key="reply.id" :data="reply" :index=index></reply>
+            </div>
+         </div>
     </div>
 </template>
 <script>

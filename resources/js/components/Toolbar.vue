@@ -7,9 +7,9 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-
                     <ul class="navbar-nav ml-auto nav-flex-icons">
-                        <li class="nav-item active" v-for="item in items" :key="item.title"  >
+                        <li class="nav-item dropdown" v-if="loggedIn"><app-notification></app-notification></li>
+                        <li class="nav-item" v-for="item in items" :key="item.title"  >
                           <router-link  :to="item.to" class="nav-link" v-if="item.show"> {{item.title}}</router-link>
                         </li>
                     </ul>
@@ -21,6 +21,7 @@
 
 
 <script>
+import AppNotification from "./AppNotification"
 export default {
     data(){
         return {
@@ -36,6 +37,14 @@ export default {
         EventBus.$on('logout',()=>{
             User.logout()
         })
+    },
+    computed:{
+        loggedIn(){
+          return User.loggedIn()
+        }
+    },
+    components:{
+        AppNotification
     }
 }
 </script>

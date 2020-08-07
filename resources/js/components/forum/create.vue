@@ -2,12 +2,11 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-10">
-                <div class="card shadow-sm mb-2 rounded-0">
+                <div class="card shadow-sm mb-2">
                     <div class="card-header">
                         <h4>Ajouter une question</h4>
                     </div>
                     <div class="card-body">
-
                           <form @submit.prevent="create">
                               <div class="form-group">
                                   <label for="name">Sujet</label>
@@ -25,7 +24,7 @@
                                   <markdown-editor v-model="form.content" ref="markdownEditor" ></markdown-editor>
                               </div>
                               <div class="form-group">
-                                   <button type="submit" :disabled="!FormIsValid" class="btn btn-success text-white btn-lg rounded-0">
+                                   <button type="submit" :disabled="!FormIsValid" class="btn btn-success text-white btn-lg">
                                          <font-awesome-icon :icon="['fas', 'save']"/>  Enregistrer
                                     </button>
                               </div>

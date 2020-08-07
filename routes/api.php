@@ -13,6 +13,9 @@ Route::get('/getcat','CategoryController@getCats');
 Route::post('/like/{reply}','likeController@likeIt');
 Route::delete('/like/{reply}','likeController@unlikeIt');
 
+Route::post('/notifications','NotificationController@index');
+Route::post('/markAsRead','NotificationController@markAsRead');
+
 Route::group([
 
     'middleware' => 'api',

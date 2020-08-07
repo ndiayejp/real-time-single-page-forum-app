@@ -2,7 +2,7 @@
    <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <div class="card shadow-sm mb-3 rounded-0">
+                <div class="card shadow-sm mb-3">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-8">
@@ -20,21 +20,21 @@
                     </div>
                     <div class="card-footer d-flex justify-content-between" v-if="owner">
                         <div>
-                            <button @click="editing" class="btn btn-sm btn-outline-secondary">
-                                <font-awesome-icon :icon="['fas', 'edit']"/> Editer
+                            <button @click="editing" class="btn btn-sm btn-outline-secondary border-0">
+                                <font-awesome-icon :icon="['fas', 'pen']" size="lg"/>
                             </button>
                         </div>
                         <div>
-                            <button @click="destroy" class="btn btn-sm btn-danger">
-                                <font-awesome-icon :icon="['fas', 'trash']"/> Supprimer
+                            <button @click="destroy" class="btn btn-sm btn-outline-danger border-0">
+                                <font-awesome-icon :icon="['fas', 'trash']" size="lg"/>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row justify-content-center">
-            <div class="col-md-11">
+        <div class="row">
+            <div class="col-md-12">
                 <replies :question="question" v-if="question.replies"></replies>
                 <new-reply :questionSlug="question.slug"></new-reply>
             </div>

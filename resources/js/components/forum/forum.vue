@@ -9,7 +9,7 @@
         </loading>
        <div class="row" v-if="isloggin">
            <div class="col-md-12">
-               <router-link to="/ask" class="btn btn-success btn-lg mb-3 rounded-0">
+               <router-link to="/ask" class="btn btn-success btn-lg mb-3">
                     <font-awesome-icon :icon="['fas', 'comment-alt']"/> Démarrer une nouvelle discussion
                </router-link>
            </div>

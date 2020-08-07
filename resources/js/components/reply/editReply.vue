@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="pb-3">
         <markdown-editor v-model="reply.reply" ref="markdownEditor"></markdown-editor>
         <button @click="update" class="btn btn-sm btn-success">
             <font-awesome-icon :icon="['fas', 'save']"/> Mettre à jour

@@ -1,26 +1,23 @@
 <template>
-    <div>
-        <div class="card shadow-sm mb-2 rounded-0">
-            <div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div><strong>{{data.user}}</strong> <span class="text-muted">a répondu {{data.created_at}}</span></div>
-                    <div><like :reply="data"></like></div>
+    <div class="question-card">
+        <div class="d-flex justify-content-between">
+            <div><strong>{{data.user}}</strong> <span class="text-muted"> a répondu {{data.created_at}}</span></div>
+            <div><like :reply="data"></like></div>
+        </div>
+        <edit-reply v-if="editing" :reply=data></edit-reply>
+        <div v-html="reply" v-else class="mt-4"></div>
 
-                </div>
-                 <edit-reply v-if="editing" :reply=data></edit-reply>
-                        <p v-html="reply" v-else class="mt-4"></p>
-            </div>
-            <div v-if="!editing">
-                <div class="card-footer bg-transparent border-default" v-if="owner">
-                    <button @click="edit" class="btn btn-sm btn-outline-secondary">
-                        <font-awesome-icon :icon="['fas', 'pen']"/> Editer
-                    </button>
-                    <button @click="destroy" class="btn btn-sm btn-danger">
-                        <font-awesome-icon :icon="['fas', 'trash']"/> Supprimer
-                    </button>
-                </div>
+        <div v-if="!editing">
+            <div class="border-0 pb-3" v-if="owner">
+                <button @click="edit" class="btn btn-sm btn-outline-secondary border-0">
+                    <font-awesome-icon :icon="['fas', 'pen']" size="lg"/>
+                </button>
+                <button @click="destroy" class="btn btn-sm btn-outline-danger border-0">
+                    <font-awesome-icon :icon="['fas', 'trash']" size="lg"/>
+                </button>
             </div>
         </div>
+
     </div>
 </template>
 <script>
@@ -69,3 +66,12 @@ export default {
     }
 }
 </script>
+<style>
+.question-card{
+    border-bottom:1px solid #ddd;
+    padding-top: 15px;
+}
+.question-card:last-child{
+    border-bottom:none
+}
+</style>
