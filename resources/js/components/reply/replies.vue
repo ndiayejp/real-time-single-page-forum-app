@@ -1,8 +1,8 @@
 <template>
     <div>
-         <div class="card shadow-sm mb-2">
+         <div class="card shadow-sm mb-2" v-if="replies.length >0">
             <div class="card-body">
-        <reply v-for="(reply,index) in replies" :key="reply.id" :data="reply" :index=index></reply>
+               <reply v-for="(reply,index) in replies" :key="reply.id" :data="reply" :index=index></reply>
             </div>
          </div>
     </div>
@@ -33,6 +33,21 @@ export default {
                 .then((res)=>{
                     this.replies.splice(index,1)
                 }).catch(err=>Exception.handle(err))
+            })
+
+            Echo.private('App.User.' + User.id())
+            .notification((notification) => {
+                this.replies.unshift(notification.reply)
+            });
+
+           Echo.channel('deleteReplyChannel')
+            .listen('DeleteReplyEvent',(e) => {
+                console.log(e)
+                for(let index = 0 ;index < this.replies.length;index++){
+                    if(this.replies[index].id == e.id){
+                        this.replies.splice(index,1)
+                    }
+                }
             })
         }
     }

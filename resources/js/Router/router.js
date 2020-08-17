@@ -3,36 +3,36 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-import Parallex from "../components/Parallex"
-import Login    from '../components/auth/Login'
-import signup   from '../components/auth/register'
-import Logout   from '../components/auth/logout'
-import Forum    from '../components/forum/forum'
-import Read     from '../components/forum/read'
-import Create   from '../components/forum/create'
-import Category   from '../components/category/createCategory'
+import  Parallex     from "../components/Parallex"
+import  Login        from '../components/auth/Login'
+import  signup       from '../components/auth/register'
+import  Logout       from '../components/auth/logout'
+import  Forum        from '../components/forum/forum'
+import  Read         from '../components/forum/read'
+import  Create       from '../components/forum/create'
+import  Category     from '../components/category/createCategory'
 
 const routes = [
     {
         path        : '/',
-        component   : Parallex
+        component   :  Parallex
     },
     {
         path        : '/login',
-        component   : Login,
+        component   :  Login,
      },
     {
         path        : '/logout',
-        component   : Logout
+        component   :  Logout
     },
     {
         path        : '/signup',
-        component   : signup
+        component   :  signup
     },
 
     {
         path        : '/forum',
-        component   : Forum,
+        component   :  Forum,
         name        : 'forum'
     },
     {
@@ -41,11 +41,11 @@ const routes = [
     },
     {
         path        : '/category',
-        component   : Category
+        component   :  Category
     },
     {
         path        : '/question/:slug',
-        component   : Read,
+        component   :  Read,
         name        : 'read'
     },
 ]
@@ -54,8 +54,8 @@ const routes = [
 
 const router = new VueRouter({
     routes, // short for `routes: routes`,
-    hashbang: false,
-    mode    : 'history'
+    hashbang    : false,
+    mode        : 'history'
 })
 
 

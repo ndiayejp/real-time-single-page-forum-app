@@ -10,14 +10,23 @@ export default {
     props:['reply'],
     data(){
         return{
-            liked:this.reply.liked,
-            count:this.reply.like_count
+            liked   :   this.reply.liked,
+            count   :   this.reply.like_count
         }
     },
     computed:{
         color(){
             return this.liked ? '#b91d19' : '#ea8a87'
         }
+    },
+    created(){
+        Echo.channel('likeChannel')
+        .listen('LikeEvent', (e) => {
+            console.log(e)
+            if(this.reply.id == e.id){
+                e.type==1 ? this.count ++ : this.count --
+            }
+        });
     },
     methods:{
         likeIt(){
@@ -27,17 +36,15 @@ export default {
             }
         },
         incr(){
-
             axios.post(`/api/like/${this.reply.id}`)
             .then(()=>{
-                this.count++
+                this.count ++
             })
-
         },
         decr(){
             axios.delete(`/api/like/${this.reply.id}`)
             .then(()=>{
-                this.count--
+                this.count --
             })
         }
     }

@@ -39,12 +39,11 @@ export default {
     },
     methods:{
         submit(){
-
             axios.post(`/api/question/${this.questionSlug}/reply`,{
                 content:this.content
             })
             .then((res)=>{
-                this.content            = ""
+                this.content  = ""
                 this.simplemde.value ("")
                 EventBus.$emit('newReply',res.data)
             }).catch( err=>Exception.handle(err))

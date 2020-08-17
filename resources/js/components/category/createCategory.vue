@@ -3,15 +3,18 @@
         <div class="row justify-content-center">
             <div class="col-md-10">
                 <div class="card shadow-sm mb-2">
-                    <div class="card-header"><h4>Ajouter une catégorie</h4></div>
+                    <div class="card-header bg-primary mb-3 text-white"><h4 class="mb-0">Ajouter une catégorie</h4></div>
                     <div class="card-body">
-                          <form @submit.prevent="submit">
+                            <div class="alert alert-danger" role="alert" v-if="errors">
+                               {{errors.name[0]}}
+                            </div>
+                            <form @submit.prevent="submit">
                               <div class="form-group">
                                   <label for="name">Nom</label>
                                   <input type="text" v-model="form.name" class="form-control">
                               </div>
                               <div class="form-group">
-                                    <button v-if="!editSlug" type="submit" class="btn btn-success btn-lg">
+                                    <button v-if="!editSlug" type="submit" class="btn btn-success btn-lg" :disabled="!form.name">
                                         <font-awesome-icon :icon="['fas', 'save']"/> Enregistrer
                                     </button>
                                      <button v-else type="submit" class="btn btn-dark text-white btn-lg">
@@ -54,7 +57,8 @@ export default {
                 name:null
             },
             categories:{},
-            editSlug:null
+            editSlug:null,
+            errors:null
         }
     },
     created(){
@@ -65,7 +69,6 @@ export default {
         .then((res)=>{
             this.categories = res.data.data
         }).catch((err)=>{
-            console.log(err)
         })
     },
     methods:{
@@ -89,7 +92,10 @@ export default {
             .then((res)=>{
                 this.form.name = ""
                 this.categories.unshift(res.data)
-            }).catch((err)=>{ })
+            }).catch((err)=>{
+
+                this.errors = err.response.data.errors
+            })
         },
         update(){
             axios.patch(`/api/category/${this.editSlug}`,this.form)

@@ -2,13 +2,13 @@
   <div>
     <a href="#" class="nav-link dropdown-toggle" id="dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <font-awesome-icon :icon="['fas', 'bell']" size="lg" :style="{ color,cursor:'pointer' }"/>
-        <span class="badge badge-danger" style="position:absolute;right:5px">{{unreadcount}}</span>
+        <span class="badge badge-danger" style="position:relative;right:9px;top:-9px">{{unreadcount}}</span>
         <div class="dropdown-menu py-0" aria-labelledby="dropdown">
-          <router-link :to="item.path" class="dropdown-item text-primary" href="#" v-for="item in unread" :key="item.id">
-              <span @click="readIt(item)">{{item.question}}</span>
-          </router-link>
+          <div class="dropdown-item text-primary" href="#" v-for="item in unread" :key="item.id">
+              <router-link :to="item.path"><span @click="readIt(item)">{{item.question}}</span></router-link>
+          </div>
           <div style="padding:0.25rem 1.5rem" v-for="item in read" :key="item.id">
-                <span>{{item.question}}</span>
+              <span>{{item.question}}</span>
           </div>
         </div>
     </a>
@@ -21,17 +21,25 @@
             return {
                 read:{},
                 unread:{},
-                unreadcount:0
+                unreadcount:0,
+                sound:"http://soundbible.com/mp3/sms-alert-5-daniel_simon.mp3"
             }
         },
         created(){
             if(User.loggedIn()){
                 this.getNotifications()
             }
+
+            Echo.private('App.User.' + User.id())
+            .notification((notification) => {
+                this.playSound()
+                this.unread.unshift(notification)
+                this.unreadcount ++
+            });
         },
         computed:{
             color(){
-                return this.unreadcount > 0 ? '#ffffff' : '#ea8a87'
+                return this.unreadcount > 0 ? '#ffffff' : '#DDDDD'
             },
             loggedIn(){
                 return User.loggedIn()
@@ -52,11 +60,17 @@
                     this.unread.splice(notification,1)
                     this.unreadcount--
                 })
+            },
+            playSound(){
+                let alert = new Audio(thi.sound)
+                alert.play()
             }
         }
     }
 </script>
 
 <style>
-
+.dropdown-toggle::after{
+    margin-left:-7px !important;
+}
 </style>

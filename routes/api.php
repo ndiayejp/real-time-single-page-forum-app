@@ -10,24 +10,20 @@ Route::apiResource('/question/{question}/reply','ReplyController');
 
 Route::get('/getcat','CategoryController@getCats');
 
-Route::post('/like/{reply}','likeController@likeIt');
+Route::post('/like/{reply}',  'likeController@likeIt');
 Route::delete('/like/{reply}','likeController@unlikeIt');
 
-Route::post('/notifications','NotificationController@index');
-Route::post('/markAsRead','NotificationController@markAsRead');
+Route::post('notifications','NotificationController@index');
+Route::post('markAsRead','NotificationController@markAsRead');
 
 Route::group([
-
     'middleware' => 'api',
-    'prefix' => 'auth'
-
+    'prefix'     => 'auth'
 ], function ($router) {
-
     Route::post('login', 'AuthController@login');
     Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::get('me', 'AuthController@me');
     Route::post('payload','AuthController@payload');
-
 });

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CategoryRequest;
 use App\Model\Category;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Http\Resources\CategoryResource;
+use Tymon\JWTAuth\Contracts\Providers\JWT;
 use Symfony\Component\HttpFoundation\Response;
 
 class CategoryController extends Controller
@@ -40,7 +42,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         $category       = new Category();
         $category->name = $request->name;
@@ -66,7 +68,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
         $category->update([
             'name'  =>  $request->name,

@@ -11,7 +11,7 @@
                             <div class="col-md-4">
                                 <div class="d-flex justify-content-end">
                                     <span class="mr-1 btn btn-outline-secondary btn-sm"> {{question.category}}</span>
-                                    <div class="ml-1 btn btn-info btn-sm text-white"> <strong>{{question.reply_count}}  <font-awesome-icon :icon="['fas', 'reply']" /></strong></div>
+                                    <div class="ml-1 btn btn-info btn-sm text-white"> <strong>{{replyCount}}  <font-awesome-icon :icon="['fas', 'reply']" /></strong></div>
                                 </div>
                             </div>
                         </div>
@@ -35,8 +35,11 @@
         </div>
         <div class="row">
             <div class="col-md-12">
-                <replies :question="question" v-if="question.replies"></replies>
-                <new-reply :questionSlug="question.slug"></new-reply>
+                <replies   :question="question" v-if="question.replies"></replies>
+                <new-reply v-if="loggedIn" :questionSlug="question.slug"></new-reply>
+                <div v-else>
+                    <router-link to="/login" class="btn btn-success">Se connecter</router-link>
+                </div>
             </div>
         </div>
    </div>
@@ -47,13 +50,40 @@ import newReply from "../reply/newReply"
 import Replies from "../reply/replies"
 export default {
     props:['question'],
+    data(){
+        return{
+            replyCount: this.question.reply_count
+        }
+    },
     computed:{
         body(){
              return md.parse(this.question.content)
         },
         owner(){
             return  User.owner(this.question.user_id)
+        },
+        loggedIn(){
+            return User.loggedIn()
         }
+    },
+    created(){
+        EventBus.$on('newReply',()=>{
+            this.replyCount++
+        })
+
+        EventBus.$on('deleteReply',()=>{
+            this.replyCount--
+        })
+
+         Echo.private('App.User.' + User.id())
+            .notification((notification) => {
+                  this.replyCount++
+            });
+
+        Echo.channel('deleteReplyChannel')
+        .listen('DeleteReplyEvent',(e) => {
+            this.replyCount--
+        })
     },
     components:{
         Replies, newReply
